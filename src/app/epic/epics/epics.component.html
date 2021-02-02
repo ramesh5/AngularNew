@@ -1,0 +1,43 @@
+<div class="headContainer">
+    <h1 class="headstyle">Epics Management</h1>
+</div>
+<div class="container">    
+     <div style="margin-left: 80%;"> <button style="margin-top: 10%;" mat-raised-button color="primary" (click)="onSave();">Save</button></div>
+
+ <div style="height: 500px;overflow-y: scroll;">
+ <div  *ngFor="let project of this.proService.projects">
+     <div style="float: left;padding-left: 1em;">
+         <h1 style="font-size: 35px;color: #480cee;">{{project.title}}</h1>
+     </div>
+     &nbsp;&nbsp;&nbsp;
+    <div >
+     <table>
+         <tr>
+             <td>  <mat-icon (click)="onAddEpic(project.id)" style="font-size: 35px;padding: 5px;color: #9c804a; width: 35px;height: 35px;cursor: pointer; margin: -26px 0 16px;">add_circle_outline</mat-icon>   </td>
+        <td><h2 style="margin: -26px 0 16px;color: #038ca2;">Add Epic</h2></td>
+         </tr>
+     </table>
+ </div>
+ <div style="max-height: 160px;overflow-y: scroll;">
+ <div *ngFor="let epic of toArray(project.epics); let i = index" >
+     <mat-form-field style="padding-left: 2em;">
+         <mat-label>Enter Epic {{i + 1}}</mat-label>
+         <input matInput [disabled]="epic.isSave=='Yes'" [(ngModel)]="epic.name" />
+         <!-- <input matInput> -->
+     </mat-form-field>
+     <mat-form-field style="padding-left: 2em;">
+        <mat-label>Priority</mat-label>
+        <mat-select [(ngModel)]="epic.priority" [disabled]="epic.isSave=='Yes'">
+            <mat-option value="PN">Pending</mat-option>
+            <mat-option value="CD">Completed</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <span style="padding-top: 1em;">
+        <mat-icon (click)="onDeleteEpic(i,project.id)" style="cursor:pointer; padding-top: 5px;color: #9c804a;">delete_forever</mat-icon>
+    </span>
+ </div>
+</div>
+<hr>
+ </div>
+</div>
+</div>
